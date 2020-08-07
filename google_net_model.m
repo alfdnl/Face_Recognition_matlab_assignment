@@ -1,16 +1,10 @@
+% This code is use to train the model.
+
 % n is the number of subjects
 n = 5;
 % You can press stop button manually on tranining plot(on top right corner besides number of iterations) once accuracy reaches upto desired level
 
-% looping through all subjects and cropping faces if found
-% extract the subject photo and crop faces and saving it in to respective
-% folders
-%for i =1:n
-%   str = ['s0',int2str(i)];
-%  ds1 = imageDatastore(['photos\',str],'IncludeSubfolders',true,'LabelSource','foldernames');
-%   cropandsave(ds1,str);
-%end
-
+% Data Preprocessing
  im = imageDatastore('croppedfaces','IncludeSubfolders',true,'LabelSource','foldernames');
  % Resize the images to the input size of the net
  im.ReadFcn = @(loc)imresize(imread(loc),[299,299]);
@@ -62,7 +56,7 @@ valFrequency = floor(numel(augimdsTrain.Files)/miniBatchSize);
 options = trainingOptions('sgdm', ...
     'MiniBatchSize',miniBatchSize, ...
     'MaxEpochs',6, ...
-    'InitialLearnRate',3e-4, ...
+    'InitialLearnRate',1e-3, ...
     'Shuffle','every-epoch', ...
     'ValidationData',augimdsTest, ...
     'ValidationFrequency',valFrequency, ...
@@ -78,8 +72,8 @@ net = trainNetwork(augimdsTrain,lgraph,options);
  save model_google_1
  
  names = Test.Labels;
- YPred = (predict==names);
- s = size(YPred);
- acc = sum(YPred)/s(1);
+ pred = (YPred==names);
+ s = size(pred);
+ acc = sum(pred)/s(1);
  fprintf('The accuracy of the test set is %f %% \n',acc*100);
 
