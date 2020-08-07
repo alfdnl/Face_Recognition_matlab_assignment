@@ -2,8 +2,8 @@
 faceDetector = vision.CascadeObjectDetector('FrontalFaceCART','MinSize',[150,150]);
 
 % Load trained model
-load model_1.mat;
-newnet = model_1;
+load model_google_1.mat;
+newnet = model_google_1;
 
 % Create the webcam object.
 cam = webcam();
@@ -32,7 +32,7 @@ while runLoop
         
         % Crop face image to predict classification
         img=imcrop(videoFrame,bbox(i,:));
-        img = imresize(img,[299 299]);
+        img = imresize(img,[224 224]);
         
         [predict,scores] = classify(newnet,img);
         disp(scores);
@@ -57,7 +57,22 @@ while runLoop
             videoFrame = insertShape(videoFrame, 'Polygon', bboxPolygon, 'LineWidth', 3);
             position = [(bboxPolygon(1,7)+bboxPolygon(1,5))/2 (bboxPolygon(1,8)+bboxPolygon(1,6))/2];
             disp(position);
-            videoFrame = insertText(videoFrame,position ,['sofea'], 'AnchorPoint', 'LeftBottom');
+            videoFrame = insertText(videoFrame,position ,['Amin'], 'AnchorPoint', 'LeftBottom');
+        elseif predict=='s03'            
+            videoFrame = insertShape(videoFrame, 'Polygon', bboxPolygon, 'LineWidth', 3);
+            position = [(bboxPolygon(1,7)+bboxPolygon(1,5))/2 (bboxPolygon(1,8)+bboxPolygon(1,6))/2];
+            disp(position);
+            videoFrame = insertText(videoFrame,position ,['Aqiff'], 'AnchorPoint', 'LeftBottom');
+        elseif predict=='s04'            
+            videoFrame = insertShape(videoFrame, 'Polygon', bboxPolygon, 'LineWidth', 3);
+            position = [(bboxPolygon(1,7)+bboxPolygon(1,5))/2 (bboxPolygon(1,8)+bboxPolygon(1,6))/2];
+            disp(position);
+            videoFrame = insertText(videoFrame,position ,['Akif'], 'AnchorPoint', 'LeftBottom');
+        elseif predict=='s05'            
+            videoFrame = insertShape(videoFrame, 'Polygon', bboxPolygon, 'LineWidth', 3);
+            position = [(bboxPolygon(1,7)+bboxPolygon(1,5))/2 (bboxPolygon(1,8)+bboxPolygon(1,6))/2];
+            disp(position);
+            videoFrame = insertText(videoFrame,position ,['Zarif'], 'AnchorPoint', 'LeftBottom');
         else
             videoFrame = insertShape(videoFrame, 'Polygon', bboxPolygon, 'LineWidth', 3);
             position = [(bboxPolygon(1,7)+bboxPolygon(1,5))/2 (bboxPolygon(1,8)+bboxPolygon(1,6))/2];

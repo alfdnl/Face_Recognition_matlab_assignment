@@ -1,15 +1,16 @@
+% This code is used to test the model
 
 % Load trained model
 load model_google_1.mat;
-newnet = model_1;
+newnet = model_google_1;
 
 % Test a new Image
 % use code below with giving path to your new image
- img = imread('C:\Users\Aliff\OneDrive - siswa.um.edu.my\Sem 6\Soft Computing\Assignment\Face-Recognition-by-CNN\Image_to_test\test_aqiff.jpg');
+ img = imread('.\Image_to_test\test_zarif.jpg');
  [img,face] = cropface(img);
 % face value is 1 when it detects face in image or 0
  if face == 1
-   img = imresize(img,[299 299]);
+   img = imresize(img,[224 224]);
    [predict,scores] = classify(newnet,img);
  end
  nameofs01 = 'Aliff';
